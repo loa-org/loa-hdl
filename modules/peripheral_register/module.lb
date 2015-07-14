@@ -1,0 +1,18 @@
+
+def init(module):
+	module.set_name("peripheral_register")
+
+def prepare(module, options):
+	module.depends("loa-hdl:core")
+	module.depends("loa-hdl:utils")
+	module.add_boolean_option(
+		name="testbench",
+		description="Generate testbench",
+		default = False)
+	return True
+
+def build(env):
+	env.copy('hdl', 'hdl')	
+	if env.options["::testbench"] == True:
+			env.copy('tb', "tb/peripheral_register")
+			env.copy('../makefile.ghdl.mk', "tb/peripheral_register")

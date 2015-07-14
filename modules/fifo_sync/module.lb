@@ -1,0 +1,16 @@
+
+def init(module):
+	module.set_name("fifo_sync")
+
+def prepare(module, options):
+	module.add_boolean_option(
+		name="testbench",
+		description="Generate testbench",
+		default = False)
+	return True
+
+def build(env):
+	env.copy('hdl', 'hdl')	
+	if env.options["::testbench"] == True:
+			env.copy('tb', "tb/fifo_sync")
+			env.copy('../makefile.ghdl.mk', "tb/fifo_sync")

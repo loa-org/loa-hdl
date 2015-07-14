@@ -1,0 +1,9 @@
+
+def init(module):
+	module.set_name("signalprocessing")
+
+def prepare(module, options):
+	return True
+
+def build(env):
+	env.copy('hdl', 'hdl')

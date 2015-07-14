@@ -16,12 +16,12 @@ TESTBENCH = fifo_sync_tb
 # VHDL files
 ifeq ($(TESTBENCH), fifo_sync_tb)
 FILES = \
-../hdl/fifo_sync_pkg.vhd \
-../hdl/fifo_sync.vhd \
+../../hdl/fifo_sync_pkg.vhd \
+../../hdl/fifo_sync.vhd \
 
 
 else ifeq ($(TESTBENCH), fifo_sync2_tb)
-FILES = ../hdl/*.vhd
+FILES = ../../hdl/*.vhd
 endif
 
 # Default settings for gtkwave (visable signal etc.)
@@ -34,6 +34,6 @@ GHDL_SIM_OPT = --stop-time=2us
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
-include ../../makefile.ghdl.mk
+include makefile.ghdl.mk
 
 GHDL_IMPORT_FLAGS += --std=02

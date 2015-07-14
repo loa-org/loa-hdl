@@ -1,0 +1,10 @@
+
+def init(module):
+	module.set_name("spislave")
+
+def prepare(module, options):
+	module.depends("loa-hdl:core")
+	return True
+
+def build(env):
+	env.copy('hdl', 'hdl')

@@ -1,0 +1,11 @@
+
+def init(module):
+	module.set_name("pwm")
+
+def prepare(module, options):
+	module.depends("loa-hdl:core")
+	module.depends("loa-hdl:utils")
+	return True
+
+def build(env):
+	env.copy('hdl', 'hdl')

@@ -1,0 +1,9 @@
+
+def init(module):
+	module.set_name("ir_tx")
+
+def prepare(module, options):
+	return True
+
+def build(env):
+	env.copy('hdl', 'hdl')
