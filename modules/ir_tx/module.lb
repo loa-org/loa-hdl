@@ -2,8 +2,18 @@
 def init(module):
 	module.set_name("ir_tx")
 
-def prepare(module, options):
+def prepare(module, options):	
+	module.depends("loa-hdl:core")
+	module.depends("loa-hdl:peripheral_register")
+	module.depends("loa-hdl:motor_control")
+	module.depends("loa-hdl:utils")
+	module.add_boolean_option(
+		name="testbench",
+		description="Generate testbench",
+		default = False)
 	return True
 
 def build(env):
-	env.copy('hdl', 'hdl')
+	env.copy('hdl', 'hdl')	
+	if env.options["::testbench"] == True:
+		pass # not testbench implemented

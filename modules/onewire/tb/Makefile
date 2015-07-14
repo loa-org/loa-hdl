@@ -7,9 +7,9 @@ TESTBENCH = onewire_reset_tb
 
 # Common files
 FILES = \
-	../hdl/onewire_pkg.vhd \
-	../hdl/onewire_cfg_pkg.vhd \
-	../hdl/onewire.vhd \
+	../../hdl/onewire_pkg.vhd \
+	../../hdl/onewire_cfg_pkg.vhd \
+	../../hdl/onewire.vhd \
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file
@@ -21,5 +21,5 @@ GHDL_SIM_OPT = --stop-time=10ms --disp-tree=inst
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
-include ../../makefile.ghdl.mk
+include makefile.ghdl.mk
 

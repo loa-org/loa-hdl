@@ -9,27 +9,27 @@ TESTBENCH ?= uart_rx_tb
 # VHDL files
 ifeq ($(TESTBENCH), uart_rx_tb)
 FILES = uart_tb_pkg.vhd\
-	../hdl/*.vhd
+	../../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=60us
 
 else ifeq ($(TESTBENCH), uart_rx_disable_tb)
 FILES = uart_tb_pkg.vhd\
-	../hdl/*.vhd
+	../../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=6us
 
 else ifeq ($(TESTBENCH), uart_tx_tb)
 FILES = uart_tb_pkg.vhd\
-	../hdl/*.vhd
+	../../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=6us
 
 else ifeq ($(TESTBENCH), uart_loopback_tb)
 FILES = uart_tb_pkg.vhd\
-	../hdl/*.vhd
+	../../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=10us
 
 else ifeq ($(TESTBENCH), uart_tb)
 FILES = uart_tb_pkg.vhd\
-	../hdl/*.vhd
+	../../hdl/*.vhd
 GHDL_SIM_OPT = --stop-time=20us
 endif
 
@@ -42,5 +42,5 @@ WAVEFORM_SETTINGS = $(TESTBENCH).sav
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
-include ../../makefile.ghdl.mk
+include makefile.ghdl.mk
 

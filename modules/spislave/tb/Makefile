@@ -4,7 +4,9 @@ TESTBENCH = spi_slave_tb
 
 # VHDL files
 FILES =  \
-	../hdl/*.vhd
+	../../hdl/bus_pkg.vhd \
+	../../hdl/spislave_pkg.vhd \
+	../../hdl/spislave.vhd 
 
 # Default settings for gtkwave (visable signal etc.)
 #  use gtkwave > File > Write Save File (Strg + S) to generate the file
@@ -16,5 +18,5 @@ GHDL_SIM_OPT = --stop-time=15us
 
 # Load default options for GHDL.
 # Defines make [all|compile|run|view|clean]
-include ../../makefile.ghdl.mk
+include makefile.ghdl.mk
 

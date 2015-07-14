@@ -5,7 +5,7 @@ The goal of the project is to develop a powerfull and flexible control board
 for robotic (and other) applications.
 
 A microcontroller from the STM32F series from ST is used as the central
-processing unit. It is coupled with a Spartan-3 FPGA from Xilinx which will
+processing unit. It is coupled with a Spartan-3 or 6 FPGA from Xilinx which will
 be used as a powerfull I/O-Expander. With this combination it is possible to
 control multiple motors with encoders and other actuators while processing
 sensor data and controlling the robot.
@@ -20,3 +20,9 @@ Naming
 
 A "Loa" is a allknowing ghost in Voodoo. The different boards are named
 after loas.
+
+
+Tools used
+----------
+
+The HDL modules are designed to be assembled into an library by the library builder: https://github.com/dergraaf/library-builder .
