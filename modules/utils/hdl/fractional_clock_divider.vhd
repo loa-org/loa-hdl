@@ -30,8 +30,9 @@ use ieee.numeric_std.all;
 
 entity fractional_clock_divider is
    generic (
-      DIV : positive;
-      MUL : positive := 1
+      DIV : positive := 1;
+      MUL : positive := 1;
+      WIDTH : positive
       );
    port (
       clk_out_p : out std_logic;
@@ -40,22 +41,27 @@ entity fractional_clock_divider is
 end fractional_clock_divider;
 
 -- ----------------------------------------------------------------------------
+
 architecture behavior of fractional_clock_divider is
 
-begin
-   process
-      variable cnt : integer range 0 to (MUL + DIV - 1) := 0;
+    signal cnt : std_logic_vector(WIDTH-1 downto 0) := (others => '0');
+begin 
+
+   process(clk) 
    begin
-      wait until rising_edge(clk);
-
-      cnt := cnt + MUL;
-      if cnt >= DIV then
-         cnt := cnt - DIV;
-
-         clk_out_p <= '1';
-      else
-         clk_out_p <= '0';
+      if rising_edge(clk) then
+--	report "div: " & integer'image(DIV);
+        if unsigned(cnt) >= to_unsigned(DIV, WIDTH) then
+           clk_out_p <= '1';
+           cnt <= std_logic_vector(unsigned(cnt) - DIV);
+        else
+           clk_out_p <= '0';
+           cnt <= std_logic_vector(unsigned(cnt) + MUL);         
+        end if;
       end if;
    end process;
 end behavior;
+
+
+
 

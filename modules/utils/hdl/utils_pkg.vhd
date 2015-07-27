@@ -60,7 +60,8 @@ package utils_pkg is
    component fractional_clock_divider is
       generic (
          DIV : positive;
-         MUL : positive);
+         MUL : positive;
+         WIDTH : positive := 16);
       port (
          clk_out_p : out std_logic;
          clk       : in  std_logic);
