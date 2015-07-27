@@ -3,6 +3,11 @@ def init(module):
 	module.set_name("core")
 
 def prepare(module, options):
+	# dummy option
+	module.add_boolean_option(
+		name="testbench",
+		description="Generate testbench",
+		default = False)
 	return True
 
 def build(env):
