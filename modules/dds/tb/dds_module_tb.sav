@@ -1,0 +1,67 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Mon Aug 24 05:46:34 2015
+[*]
+[dumpfile] "/home/calle/projects/fpga_loa2/loa-hdl-test/tb/dds/simulation/dds_module_tb.ghw"
+[dumpfile_mtime] "Mon Aug 24 05:44:08 2015"
+[dumpfile_size] 1179796
+[savefile] "/home/calle/projects/fpga_loa2/loa-hdl-test/tb/dds/dds_module_tb.sav"
+[timestart] 0
+[size] 1920 1003
+[pos] -1 -1
+*-35.571445 35900000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.dds_module_tb.
+[treeopen] top.dds_module_tb.bus_i.
+[treeopen] top.dds_module_tb.bus_o.
+[treeopen] top.dds_module_tb.dds_module_1.
+[treeopen] top.dds_module_tb.dds_module_1.load_register.r.
+[treeopen] top.dds_module_tb.dds_module_1.nco_0.
+[treeopen] top.dds_module_tb.dds_module_1.nco_0.r.
+[sst_width] 201
+[signals_width] 220
+[sst_expanded] 1
+[sst_vpaned_height] 297
+@28
+top.dds_module_tb.clk
+top.dds_module_tb.reset
+@200
+-
+@28
+top.dds_module_tb.bus_i.we
+top.dds_module_tb.bus_i.re
+@22
+#{top.dds_module_tb.bus_i.addr[14:0]} top.dds_module_tb.bus_i.addr[14] top.dds_module_tb.bus_i.addr[13] top.dds_module_tb.bus_i.addr[12] top.dds_module_tb.bus_i.addr[11] top.dds_module_tb.bus_i.addr[10] top.dds_module_tb.bus_i.addr[9] top.dds_module_tb.bus_i.addr[8] top.dds_module_tb.bus_i.addr[7] top.dds_module_tb.bus_i.addr[6] top.dds_module_tb.bus_i.addr[5] top.dds_module_tb.bus_i.addr[4] top.dds_module_tb.bus_i.addr[3] top.dds_module_tb.bus_i.addr[2] top.dds_module_tb.bus_i.addr[1] top.dds_module_tb.bus_i.addr[0]
+#{top.dds_module_tb.bus_i.data[15:0]} top.dds_module_tb.bus_i.data[15] top.dds_module_tb.bus_i.data[14] top.dds_module_tb.bus_i.data[13] top.dds_module_tb.bus_i.data[12] top.dds_module_tb.bus_i.data[11] top.dds_module_tb.bus_i.data[10] top.dds_module_tb.bus_i.data[9] top.dds_module_tb.bus_i.data[8] top.dds_module_tb.bus_i.data[7] top.dds_module_tb.bus_i.data[6] top.dds_module_tb.bus_i.data[5] top.dds_module_tb.bus_i.data[4] top.dds_module_tb.bus_i.data[3] top.dds_module_tb.bus_i.data[2] top.dds_module_tb.bus_i.data[1] top.dds_module_tb.bus_i.data[0]
+#{top.dds_module_tb.bus_o.data[15:0]} top.dds_module_tb.bus_o.data[15] top.dds_module_tb.bus_o.data[14] top.dds_module_tb.bus_o.data[13] top.dds_module_tb.bus_o.data[12] top.dds_module_tb.bus_o.data[11] top.dds_module_tb.bus_o.data[10] top.dds_module_tb.bus_o.data[9] top.dds_module_tb.bus_o.data[8] top.dds_module_tb.bus_o.data[7] top.dds_module_tb.bus_o.data[6] top.dds_module_tb.bus_o.data[5] top.dds_module_tb.bus_o.data[4] top.dds_module_tb.bus_o.data[3] top.dds_module_tb.bus_o.data[2] top.dds_module_tb.bus_o.data[1] top.dds_module_tb.bus_o.data[0]
+@200
+-
+@20000
+-
+@8421
+[color] 3
+#{top.dds_module_tb.dout[15:0]} top.dds_module_tb.dout[15] top.dds_module_tb.dout[14] top.dds_module_tb.dout[13] top.dds_module_tb.dout[12] top.dds_module_tb.dout[11] top.dds_module_tb.dout[10] top.dds_module_tb.dout[9] top.dds_module_tb.dout[8] top.dds_module_tb.dout[7] top.dds_module_tb.dout[6] top.dds_module_tb.dout[5] top.dds_module_tb.dout[4] top.dds_module_tb.dout[3] top.dds_module_tb.dout[2] top.dds_module_tb.dout[1] top.dds_module_tb.dout[0]
+@20000
+-
+@200
+-
+-internal
+@22
+#{top.dds_module_tb.dds_module_1.phase[9:0]} top.dds_module_tb.dds_module_1.phase[9] top.dds_module_tb.dds_module_1.phase[8] top.dds_module_tb.dds_module_1.phase[7] top.dds_module_tb.dds_module_1.phase[6] top.dds_module_tb.dds_module_1.phase[5] top.dds_module_tb.dds_module_1.phase[4] top.dds_module_tb.dds_module_1.phase[3] top.dds_module_tb.dds_module_1.phase[2] top.dds_module_tb.dds_module_1.phase[1] top.dds_module_tb.dds_module_1.phase[0]
+#{top.dds_module_tb.dds_module_1.nco_0.r.accu[15:0]} top.dds_module_tb.dds_module_1.nco_0.r.accu[15] top.dds_module_tb.dds_module_1.nco_0.r.accu[14] top.dds_module_tb.dds_module_1.nco_0.r.accu[13] top.dds_module_tb.dds_module_1.nco_0.r.accu[12] top.dds_module_tb.dds_module_1.nco_0.r.accu[11] top.dds_module_tb.dds_module_1.nco_0.r.accu[10] top.dds_module_tb.dds_module_1.nco_0.r.accu[9] top.dds_module_tb.dds_module_1.nco_0.r.accu[8] top.dds_module_tb.dds_module_1.nco_0.r.accu[7] top.dds_module_tb.dds_module_1.nco_0.r.accu[6] top.dds_module_tb.dds_module_1.nco_0.r.accu[5] top.dds_module_tb.dds_module_1.nco_0.r.accu[4] top.dds_module_tb.dds_module_1.nco_0.r.accu[3] top.dds_module_tb.dds_module_1.nco_0.r.accu[2] top.dds_module_tb.dds_module_1.nco_0.r.accu[1] top.dds_module_tb.dds_module_1.nco_0.r.accu[0]
+@28
+top.dds_module_tb.dds_module_1.nco_0.load
+@200
+-
+-phase load reg
+@22
+#{top.dds_module_tb.dds_module_1.load_register.r.oreg[15:0]} top.dds_module_tb.dds_module_1.load_register.r.oreg[15] top.dds_module_tb.dds_module_1.load_register.r.oreg[14] top.dds_module_tb.dds_module_1.load_register.r.oreg[13] top.dds_module_tb.dds_module_1.load_register.r.oreg[12] top.dds_module_tb.dds_module_1.load_register.r.oreg[11] top.dds_module_tb.dds_module_1.load_register.r.oreg[10] top.dds_module_tb.dds_module_1.load_register.r.oreg[9] top.dds_module_tb.dds_module_1.load_register.r.oreg[8] top.dds_module_tb.dds_module_1.load_register.r.oreg[7] top.dds_module_tb.dds_module_1.load_register.r.oreg[6] top.dds_module_tb.dds_module_1.load_register.r.oreg[5] top.dds_module_tb.dds_module_1.load_register.r.oreg[4] top.dds_module_tb.dds_module_1.load_register.r.oreg[3] top.dds_module_tb.dds_module_1.load_register.r.oreg[2] top.dds_module_tb.dds_module_1.load_register.r.oreg[1] top.dds_module_tb.dds_module_1.load_register.r.oreg[0]
+@200
+-
+@28
+top.dds_module_tb.dds_module_1.en0
+top.dds_module_tb.dds_module_1.load0
+@22
+#{top.dds_module_tb.dds_module_1.nco_0.accu_load[15:0]} top.dds_module_tb.dds_module_1.nco_0.accu_load[15] top.dds_module_tb.dds_module_1.nco_0.accu_load[14] top.dds_module_tb.dds_module_1.nco_0.accu_load[13] top.dds_module_tb.dds_module_1.nco_0.accu_load[12] top.dds_module_tb.dds_module_1.nco_0.accu_load[11] top.dds_module_tb.dds_module_1.nco_0.accu_load[10] top.dds_module_tb.dds_module_1.nco_0.accu_load[9] top.dds_module_tb.dds_module_1.nco_0.accu_load[8] top.dds_module_tb.dds_module_1.nco_0.accu_load[7] top.dds_module_tb.dds_module_1.nco_0.accu_load[6] top.dds_module_tb.dds_module_1.nco_0.accu_load[5] top.dds_module_tb.dds_module_1.nco_0.accu_load[4] top.dds_module_tb.dds_module_1.nco_0.accu_load[3] top.dds_module_tb.dds_module_1.nco_0.accu_load[2] top.dds_module_tb.dds_module_1.nco_0.accu_load[1] top.dds_module_tb.dds_module_1.nco_0.accu_load[0]
+[pattern_trace] 1
+[pattern_trace] 0
