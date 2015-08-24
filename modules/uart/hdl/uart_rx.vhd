@@ -19,10 +19,13 @@ use ieee.numeric_std.all;
 
 library work;
 use work.uart_pkg.all;
+use work.reset_pkg.all;
 
 -------------------------------------------------------------------------------
 entity uart_rx is
-
+  generic (
+    RESET_IMPL : reset_type := none
+    );
    port (
       rxd_p     : in  std_logic;
       disable_p : in  std_logic;
@@ -31,6 +34,7 @@ entity uart_rx is
       error_p   : out std_logic;
       full_p    : in  std_logic;
       clk_rx_en : in  std_logic;
+      reset     : in  std_logic;
       clk       : in  std_logic);
 
 end uart_rx;
@@ -58,7 +62,7 @@ architecture behavioural of uart_rx is
       fifo_error : std_logic;           -- parity of framing error
    end record;
 
-   signal r, rin : uart_rx_type := (
+   constant uart_rx_type_initial : uart_rx_type := (
       state       => IDLE,
       bitcount    => 0,
       samplecount => 0,
@@ -70,6 +74,8 @@ architecture behavioural of uart_rx is
       fifo_we     => '0',
       fifo_error  => '0');
 
+   signal r, rin : uart_rx_type := uart_rx_type_initial;
+   
    signal voter_output : std_logic := '0';
 
    -- Five bit majority voter.
@@ -97,16 +103,8 @@ begin
    we_p    <= r.fifo_we;
    error_p <= r.fifo_error;
 
-   -- Sequential part of finite state machine (FSM)
-   seq_proc : process(clk)
-   begin
-      if rising_edge(clk) then
-         r <= rin;
-      end if;
-   end process seq_proc;
-
    -- Combinatorial part of FSM
-   comb_proc : process(clk_rx_en, disable_p, r, rxd_p, voter_output)
+   comb_proc : process(clk_rx_en, disable_p, r, rxd_p, voter_output, reset)
       variable v : uart_rx_type;
    begin
       v := r;
@@ -185,8 +183,38 @@ begin
 
       end case;
 
+    -- sync reset
+    if RESET_IMPL = sync then
+      if reset = '1' then
+        v := uart_rx_type_initial;
+      end if;
+    end if;
+
       rin <= v;
    end process comb_proc;
+
+  ----------------------------------------------------------------------------
+  -- Sequential part of finite state machine (FSM)
+  ----------------------------------------------------------------------------
+  reset_async : if RESET_IMPL = async generate
+    seq_proc : process(clk, reset)
+    begin
+      if reset = '1' then
+        r <= uart_rx_type_initial;     -- async reset
+      elsif rising_edge(clk) then
+        r <= rin;
+      end if;
+    end process seq_proc;
+  end generate reset_async;
+
+  reset_sync : if not (RESET_IMPL = async) generate
+    seq_proc : process(clk)
+    begin
+      if rising_edge(clk) then
+        r <= rin;
+      end if;
+    end process seq_proc;
+  end generate reset_sync;
 
 -- Component instantiations
 end behavioural;

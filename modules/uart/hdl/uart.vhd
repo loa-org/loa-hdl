@@ -15,10 +15,14 @@ use ieee.numeric_std.all;
 
 library work;
 use work.uart_pkg.all;
+use work.reset_pkg.all;
 
 -------------------------------------------------------------------------------
 entity uart is
-
+   generic (
+      RESET_IMPL : reset_type := none
+   );
+    
    port (
       txd_p : out std_logic;
       rxd_p : in  std_logic;
@@ -32,7 +36,8 @@ entity uart is
       error_p : out std_logic;
       full_p  : in  std_logic;
 
-      clk_en : in std_logic;
+      clk_en : in std_logic;    
+      reset : in  std_logic;      
       clk    : in std_logic);
 
 end uart;
@@ -63,6 +68,7 @@ begin
 
    -- Receiver
    rx : uart_rx
+   	  generic map (	RESET_IMPL => RESET_IMPL )
       port map (
          rxd_p     => rxd_p,
          disable_p => busy,
@@ -71,10 +77,12 @@ begin
          error_p   => error_p,
          full_p    => full_p,
          clk_rx_en => clk_en,
+         reset     => reset,
          clk       => clk);
 
    -- Transmitter
    tx : uart_tx
+   	  generic map (	RESET_IMPL => RESET_IMPL )
       port map (
          txd_p     => txd_p,
          busy_p    => busy,
@@ -82,6 +90,7 @@ begin
          empty_p   => empty_p,
          re_p      => re_p,
          clk_tx_en => clk_tx_en,
+         reset     => reset,
          clk       => clk);
 
 end behavioural;

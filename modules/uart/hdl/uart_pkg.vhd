@@ -12,10 +12,17 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library work;
+use work.reset_pkg.all;
+
+
 package uart_pkg is
 
    -- UART transmitter
    component uart_tx
+      generic (
+	     RESET_IMPL : reset_type := none
+      );
       port (
          txd_p  : out std_logic;        -- Output pin (active low)
          busy_p : out std_logic;  -- High if a transmission is in progress
@@ -26,11 +33,15 @@ package uart_pkg is
          re_p    : out std_logic;       -- Read enable
 
          clk_tx_en : in std_logic;      -- Enable pulse for the bitrate
+         reset     : in  std_logic;
          clk       : in std_logic);
    end component;
 
    -- UART receiver
    component uart_rx
+      generic (
+    	RESET_IMPL : reset_type := none
+      );
       port (
          rxd_p : in std_logic;          -- Input pin
 
@@ -47,6 +58,7 @@ package uart_pkg is
          -- Enable pulse for the rx bitrate, needs to be five timer higher
          -- than the actual bitrate
          clk_rx_en : in std_logic;
+         reset     : in  std_logic;
          clk       : in std_logic);
    end component;
 
@@ -54,6 +66,9 @@ package uart_pkg is
    --
    -- Module with echo rejection. 
    component uart
+      generic (
+	     RESET_IMPL : reset_type := none
+      );
       port(
          txd_p : out std_logic;         -- Output pin (active low)
          rxd_p : in  std_logic;         -- Input pin
@@ -73,6 +88,7 @@ package uart_pkg is
          -- Enable pulse for the rx bitrate, needs to be five timer higher
          -- than the actual bitrate
          clk_en : in std_logic;
+         reset  : in  std_logic;
          clk    : in std_logic);
 
    end component;
