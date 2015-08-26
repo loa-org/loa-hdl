@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Fri Jul 31 23:55:46 2015
+[*]
+[dumpfile] "/home/calle/projects/fpga_loa2/loa-hdl-test/tb/reset_gen/simulation/reset_gen_tb.ghw"
+[dumpfile_mtime] "Fri Jul 31 23:55:00 2015"
+[dumpfile_size] 42433
+[savefile] "/home/calle/projects/fpga_loa2/loa-hdl-test/tb/reset_gen/reset_gen_tb.sav"
+[timestart] 0
+[size] 1627 1037
+[pos] 0 0
+*-24.792261 -1 2110000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.reset_gen_tb.
+[treeopen] top.reset_gen_tb.dut.
+[sst_width] 201
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 309
+@200
+-
+-
+@28
+top.reset_gen_tb.dut.clk
+@29
+top.reset_gen_tb.dut.reset
+@200
+-
+-
+[pattern_trace] 1
+[pattern_trace] 0
