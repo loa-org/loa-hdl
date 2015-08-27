@@ -44,6 +44,7 @@ architecture behavioral of nco is
   type nco_state_type is record
     accu : std_logic_vector(ACCU_WIDTH-1 downto 0);
   end record nco_state_type;
+
   constant nco_state_initial : nco_state_type := (accu => (others => '0'));
   signal r, rin              : nco_state_type := nco_state_initial;
 begin  -- architecture behaviorall
@@ -61,11 +62,7 @@ begin  -- architecture behaviorall
     elsif en = '1' then
       v.accu :=
         std_logic_vector(
-          resize(
-            to_unsigned(to_integer(unsigned(r.accu)) +
-                        to_integer(unsigned(phase_increment)),
-                        16
-                        ), 16)
+          resize(unsigned(r.accu) +unsigned(phase_increment), ACCU_WIDTH)
           );                            -- numeric_std loves you
     end if;
 

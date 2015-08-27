@@ -39,6 +39,3 @@ package nco_pkg is
 
 end package nco_pkg;
 
-package body nco_pkg is
-
-end package body nco_pkg;

@@ -82,7 +82,7 @@ begin
     wait until rising_edge(clk);
     bus_i.we   <= '0';
 
-    wait for 30 us;
+    wait for 1 us;
 
 
     ---------------------------------------------------------------------------
@@ -90,17 +90,27 @@ begin
     ---------------------------------------------------------------------------
     wait until rising_edge(clk);
     bus_i.addr <= std_logic_vector(to_unsigned(16#801#, 15));
-    bus_i.data <= x"0010";
+    bus_i.data <= x"0001";
+    bus_i.we   <= '1';
+    wait until rising_edge(clk);
+    bus_i.addr <= std_logic_vector(to_unsigned(16#802#, 15));
+    bus_i.data <= x"0020";
     bus_i.we   <= '1';
     wait until rising_edge(clk);
     bus_i.we   <= '0';
 
+
+    
     ---------------------------------------------------------------------------
-    -- Set Phase
+    -- Set Phase -- 0°
     ---------------------------------------------------------------------------
     wait until rising_edge(clk);
-    bus_i.addr <= std_logic_vector(to_unsigned(16#802#, 15));
-    bus_i.data <= x"8000";              -- 180°
+    bus_i.addr <= std_logic_vector(to_unsigned(16#803#, 15));
+    bus_i.data <= x"0000";              
+    bus_i.we   <= '1';
+    wait until rising_edge(clk);
+    bus_i.addr <= std_logic_vector(to_unsigned(16#804#, 15));
+    bus_i.data <= x"0000";              
     bus_i.we   <= '1';
     wait until rising_edge(clk);
     bus_i.we   <= '0';

@@ -42,13 +42,13 @@ entity dds_module is
 end entity dds_module;
 
 architecture structural of dds_module is
-  signal phase_increment : std_logic_vector(15 downto 0);
+  signal phase_increment : std_logic_vector(31 downto 0);
   signal phase           : std_logic_vector(9 downto 0);
   signal ctrl_reg        : std_logic_vector(15 downto 0);
-  signal accu_load0      : std_logic_vector(15 downto 0);
+  signal accu_load0      : std_logic_vector(31 downto 0);
   signal load0, en0      : std_logic;
 
-  signal bus_ram_o, bus_ctrl_reg_o, bus_phase_inc_register_o, bus_load_register_o : busdevice_out_type;
+  signal bus_ram_o, bus_ctrl_reg_o, bus_phase_inc_lsb_register_o, bus_load_lsb_register_o, bus_phase_inc_msb_register_o, bus_load_msb_register_o : busdevice_out_type;
 
 begin  -- architecture structural
 
@@ -58,9 +58,9 @@ begin  -- architecture structural
   -----------------------------------------------------------------------------
   nco_0 : entity work.nco
     generic map (
-      ACCU_WIDTH  => 16,
+      ACCU_WIDTH  => 32,
       PHASE_WIDTH => 10,
-      RESET_IMPL  => sync)
+      RESET_IMPL  => RESET_IMPL)
     port map (
       en              => en0,
       phase_increment => phase_increment,
@@ -109,25 +109,48 @@ begin  -- architecture structural
       bus_i  => bus_i,
       clk    => clk);
 
-  phase_inc_register : entity work.peripheral_register
+  phase_inc_lsb_register : entity work.peripheral_register
     generic map (
       BASE_ADDRESS => BASE_ADDRESS + 16#401#)
     port map (
-      dout_p => phase_increment,
-      din_p  => phase_increment,
-      bus_o  => bus_phase_inc_register_o,
+      dout_p => phase_increment(15 downto 0),
+      din_p  => phase_increment(15 downto 0),
+      bus_o  => bus_phase_inc_lsb_register_o,
       bus_i  => bus_i,
       clk    => clk);
 
-  load_register : entity work.peripheral_register
+  phase_inc_msb_register : entity work.peripheral_register
     generic map (
       BASE_ADDRESS => BASE_ADDRESS + 16#402#)
     port map (
-      dout_p => accu_load0,
-      din_p  => accu_load0,
-      bus_o  => bus_load_register_o,
+      dout_p => phase_increment(31 downto 16),
+      din_p  => phase_increment(31 downto 16),
+      bus_o  => bus_phase_inc_msb_register_o,
       bus_i  => bus_i,
       clk    => clk);
+
+
+
+  load_lsb_register : entity work.peripheral_register
+    generic map (
+      BASE_ADDRESS => BASE_ADDRESS + 16#403#)
+    port map (
+      dout_p => accu_load0(15 downto 0),
+      din_p  => accu_load0(15 downto 0),
+      bus_o  => bus_load_lsb_register_o,
+      bus_i  => bus_i,
+      clk    => clk);
+
+  load_msb_register : entity work.peripheral_register
+    generic map (
+      BASE_ADDRESS => BASE_ADDRESS + 16#404#)
+    port map (
+      dout_p => accu_load0(31 downto 16),
+      din_p  => accu_load0(31 downto 16),
+      bus_o  => bus_load_msb_register_o,
+      bus_i  => bus_i,
+      clk    => clk);
+
 
   -----------------------------------------------------------------------------
   -- Control Register Mapping
@@ -139,6 +162,11 @@ begin  -- architecture structural
   -----------------------------------------------------------------------------
   -- combine bus_o signals of all components
   -----------------------------------------------------------------------------
-  bus_o.data <= bus_load_register_o.data or bus_phase_inc_register_o.data or bus_ctrl_reg_o.data or bus_ram_o.data;
+  bus_o.data <= bus_load_lsb_register_o.data or
+                bus_load_msb_register_o.data or
+                bus_phase_inc_lsb_register_o.data or
+                bus_phase_inc_msb_register_o.data or
+                bus_ctrl_reg_o.data or
+                bus_ram_o.data;
 
 end architecture structural;
