@@ -48,7 +48,7 @@ architecture structural of dds_module is
   signal accu_load0      : std_logic_vector(15 downto 0);
   signal load0, en0      : std_logic;
 
-  signal bus_ram_o, bus_ctrl_reg_o, bus_phase_inc_register_o : busdevice_out_type;
+  signal bus_ram_o, bus_ctrl_reg_o, bus_phase_inc_register_o, bus_load_register_o : busdevice_out_type;
 
 begin  -- architecture structural
 
@@ -125,7 +125,7 @@ begin  -- architecture structural
     port map (
       dout_p => accu_load0,
       din_p  => accu_load0,
-      bus_o  => bus_phase_inc_register_o,
+      bus_o  => bus_load_register_o,
       bus_i  => bus_i,
       clk    => clk);
 
@@ -139,6 +139,6 @@ begin  -- architecture structural
   -----------------------------------------------------------------------------
   -- combine bus_o signals of all components
   -----------------------------------------------------------------------------
-  bus_o.data <= bus_phase_inc_register_o.data or bus_ctrl_reg_o.data or bus_ram_o.data;
+  bus_o.data <= bus_load_register_o.data or bus_phase_inc_register_o.data or bus_ctrl_reg_o.data or bus_ram_o.data;
 
 end architecture structural;
