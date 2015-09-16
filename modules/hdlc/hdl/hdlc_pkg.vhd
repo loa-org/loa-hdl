@@ -23,6 +23,7 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
+use work.reset_pkg.all;
 
 package hdlc_pkg is
   type hdlc_enc_in_type is record
@@ -63,6 +64,20 @@ package hdlc_pkg is
       bus_i  : in  busmaster_in_type;
       clk    : in  std_logic);
   end component;
+
+  component hdlc_busmaster_with_support is
+    generic (
+      DIV_RX     : positive;
+      DIV_TX     : positive;
+      RESET_IMPL : reset_type);
+    port (
+      rx    : in  std_logic;
+      tx    : out std_logic;
+      bus_o : out busmaster_out_type;
+      bus_i : in  busmaster_in_type;
+      reset : in  std_logic;
+      clk   : in  std_logic);
+  end component hdlc_busmaster_with_support;
 
 end package hdlc_pkg;
 
