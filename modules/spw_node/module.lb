@@ -1,0 +1,30 @@
+
+def init(module):
+	module.set_name("spw_node")
+
+def prepare(module, options):
+	module.depends("loa-hdl:core")
+	#module.depends("loa-hdl:utils")
+	module.add_boolean_option(
+		name="testbench",
+		description="Generate testbench",
+		default = False)
+	return True
+
+def build(env):
+	env.copy('hdl', 'hdl')	
+	env.copy('vendor/rtl/vhdl/spwlink.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/spwpkg.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/spwrecvfront_generic.vhd', 'hdl')
+	# env.copy('vendor/rtl/vhdl/spwrecvfront_fast.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/spwrecv.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/spwxmit.vhd', 'hdl')
+	# env.copy('vendor/rtl/vhdl/spwxmit_fast.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/spwlink.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/spwram.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/spwstream.vhd', 'hdl')
+	env.copy('vendor/rtl/vhdl/syncdff.vhd', 'hdl')
+	
+	if env.options["::testbench"] == True:
+			env.copy('tb', "tb/spw_node")
+			env.copy('../makefile.ghdl.mk', "tb/spw_node")

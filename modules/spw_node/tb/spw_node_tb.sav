@@ -1,0 +1,68 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Tue Sep 15 10:21:04 2015
+[*]
+[dumpfile] "/home/user/projects/sandbox-loa/sets/nexys2_spw/tb/spw_node/simulation/spw_node_tb.ghw"
+[dumpfile_mtime] "Tue Sep 15 09:19:54 2015"
+[dumpfile_size] 1691808
+[savefile] "/home/user/projects/sandbox-loa/sets/nexys2_spw/tb/spw_node/spw_node_tb.sav"
+[timestart] 0
+[size] 1920 996
+[pos] -1 -1
+*-35.970745 140410000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.spw_node_tb.
+[treeopen] top.spw_node_tb.spw_node_1.
+[treeopen] top.spw_node_tb.spw_node_1.spwstream_1.
+[sst_width] 206
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 294
+@28
+top.spw_node_tb.reset
+top.spw_node_tb.clk
+@200
+-
+-Toplevel SpW
+@28
+top.spw_node_tb.si_p
+top.spw_node_tb.di_p
+top.spw_node_tb.so_p
+top.spw_node_tb.do_p
+@200
+-
+-Bus
+@22
+#{top.spw_node_tb.bus_i.addr[14:0]} top.spw_node_tb.bus_i.addr[14] top.spw_node_tb.bus_i.addr[13] top.spw_node_tb.bus_i.addr[12] top.spw_node_tb.bus_i.addr[11] top.spw_node_tb.bus_i.addr[10] top.spw_node_tb.bus_i.addr[9] top.spw_node_tb.bus_i.addr[8] top.spw_node_tb.bus_i.addr[7] top.spw_node_tb.bus_i.addr[6] top.spw_node_tb.bus_i.addr[5] top.spw_node_tb.bus_i.addr[4] top.spw_node_tb.bus_i.addr[3] top.spw_node_tb.bus_i.addr[2] top.spw_node_tb.bus_i.addr[1] top.spw_node_tb.bus_i.addr[0]
+#{top.spw_node_tb.bus_i.data[15:0]} top.spw_node_tb.bus_i.data[15] top.spw_node_tb.bus_i.data[14] top.spw_node_tb.bus_i.data[13] top.spw_node_tb.bus_i.data[12] top.spw_node_tb.bus_i.data[11] top.spw_node_tb.bus_i.data[10] top.spw_node_tb.bus_i.data[9] top.spw_node_tb.bus_i.data[8] top.spw_node_tb.bus_i.data[7] top.spw_node_tb.bus_i.data[6] top.spw_node_tb.bus_i.data[5] top.spw_node_tb.bus_i.data[4] top.spw_node_tb.bus_i.data[3] top.spw_node_tb.bus_i.data[2] top.spw_node_tb.bus_i.data[1] top.spw_node_tb.bus_i.data[0]
+@28
+top.spw_node_tb.bus_i.re
+top.spw_node_tb.bus_i.we
+@23
+#{top.spw_node_tb.bus_o.data[15:0]} top.spw_node_tb.bus_o.data[15] top.spw_node_tb.bus_o.data[14] top.spw_node_tb.bus_o.data[13] top.spw_node_tb.bus_o.data[12] top.spw_node_tb.bus_o.data[11] top.spw_node_tb.bus_o.data[10] top.spw_node_tb.bus_o.data[9] top.spw_node_tb.bus_o.data[8] top.spw_node_tb.bus_o.data[7] top.spw_node_tb.bus_o.data[6] top.spw_node_tb.bus_o.data[5] top.spw_node_tb.bus_o.data[4] top.spw_node_tb.bus_o.data[3] top.spw_node_tb.bus_o.data[2] top.spw_node_tb.bus_o.data[1] top.spw_node_tb.bus_o.data[0]
+@200
+-
+-internal
+@22
+#{top.spw_node_tb.spw_node_1.txdata[7:0]} top.spw_node_tb.spw_node_1.txdata[7] top.spw_node_tb.spw_node_1.txdata[6] top.spw_node_tb.spw_node_1.txdata[5] top.spw_node_tb.spw_node_1.txdata[4] top.spw_node_tb.spw_node_1.txdata[3] top.spw_node_tb.spw_node_1.txdata[2] top.spw_node_tb.spw_node_1.txdata[1] top.spw_node_tb.spw_node_1.txdata[0]
+#{top.spw_node_tb.spw_node_1.rxdata[7:0]} top.spw_node_tb.spw_node_1.rxdata[7] top.spw_node_tb.spw_node_1.rxdata[6] top.spw_node_tb.spw_node_1.rxdata[5] top.spw_node_tb.spw_node_1.rxdata[4] top.spw_node_tb.spw_node_1.rxdata[3] top.spw_node_tb.spw_node_1.rxdata[2] top.spw_node_tb.spw_node_1.rxdata[1] top.spw_node_tb.spw_node_1.rxdata[0]
+@28
+top.spw_node_tb.spw_node_1.spwstream_1.started
+top.spw_node_tb.spw_node_1.spwstream_1.txrdy
+top.spw_node_tb.spw_node_1.spwstream_1.linkstart
+top.spw_node_tb.spw_node_1.spwstream_1.autostart
+top.spw_node_tb.spw_node_1.spwstream_1.rst
+top.spw_node_tb.spw_node_1.spwstream_1.txclk
+top.spw_node_tb.spw_node_1.spwstream_1.rxclk
+top.spw_node_tb.spw_node_1.spwstream_1.linkdis
+top.spw_node_tb.spw_node_1.spwstream_1.linkstart
+top.spw_node_tb.spw_node_1.spwstream_1.txhalff
+top.spw_node_tb.spw_node_1.spwstream_1.rxread
+top.spw_node_tb.spw_node_1.spwstream_1.txwrite
+top.spw_node_tb.spw_node_1.spwstream_1.rxvalid
+top.spw_node_tb.spw_node_1.spwstream_1.txrdy
+@22
+#{top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[9:0]} top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[9] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[8] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[7] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[6] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[5] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[4] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[3] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[2] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[1] top.spw_node_tb.spw_node_1.spwstream_1.s_txfifo_waddr[0]
+#{top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[9:0]} top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[9] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[8] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[7] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[6] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[5] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[4] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[3] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[2] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[1] top.spw_node_tb.spw_node_1.spwstream_1.s_rxfifo_raddr[0]
+[pattern_trace] 1
+[pattern_trace] 0
