@@ -20,6 +20,7 @@ use ieee.std_logic_1164.all;
 library work;
 use work.ws2812_pkg.all;
 use work.ws2812_cfg_pkg.all;
+use work.reset_pkg.all;
 
 -------------------------------------------------------------------------------
 
@@ -39,23 +40,30 @@ architecture tb of ws2812_8x1_tb is
   signal ws2812_chain_out : ws2812_chain_out_type;
 
   -- clock
-  signal Clk : std_logic := '1';
+  signal Clk   : std_logic := '1';
+  signal reset : std_logic := '1';
 
 begin  -- tb
 
   -- component instantiation
   DUT : ws2812_8x1
+    generic map (
+      RESET_IMPL => sync)
     port map (
       pixels     => pixels,
       ws2812_in  => ws2812_in,
       ws2812_out => ws2812_out,
+      reset      => reset,
       clk        => clk);
 
   ws2812_1 : ws2812
+    generic map (
+      RESET_IMPL => sync)
     port map (
       ws2812_in        => ws2812_in,
       ws2812_out       => ws2812_out,
       ws2812_chain_out => ws2812_chain_out,
+      reset            => reset,
       clk              => clk);
   -- clock generation
   Clk <= not Clk after 10 ns;
@@ -63,9 +71,12 @@ begin  -- tb
   -- waveform generation
   WaveGen_Proc : process
   begin
+    wait until Clk = '1';
+    reset <= '0';
+    wait until Clk = '1';
     -- insert signal assignments here
 
-    pixels <= (pixel   =>
+    pixels <= (pixel =>
                (0      => x"111111",
                 1      => x"110000",
                 2      => x"111111",

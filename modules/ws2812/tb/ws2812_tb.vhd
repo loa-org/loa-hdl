@@ -38,7 +38,8 @@ architecture tb of ws2812_tb is
 
   -- clock
   signal Clk : std_logic := '1';
-
+  signal reset : std_logic := '1';
+  
 begin  -- tb
 
   -- component instantiation
@@ -47,6 +48,7 @@ begin  -- tb
       ws2812_in        => ws2812_in,
       ws2812_out       => ws2812_out,
       ws2812_chain_out => ws2812_chain_out,
+      reset            => reset,
       clk              => clk);
 
   -- clock generation
@@ -55,6 +57,9 @@ begin  -- tb
   -- waveform generation
   WaveGen_Proc : process
   begin
+    wait until Clk = '1';
+    reset <='0';
+    wait until Clk = '1';
     -- insert signal assignments here
     ws2812_in.send_reset <= '0';
     ws2812_in.we         <= '0';
@@ -74,7 +79,7 @@ begin  -- tb
     wait for 80 us;
   end process WaveGen_Proc;
 
-  
+
 
 end tb;
 

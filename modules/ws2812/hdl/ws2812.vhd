@@ -26,18 +26,22 @@ use ieee.numeric_std.all;
 library work;
 use work.ws2812_pkg.all;
 use work.ws2812_cfg_pkg.all;
+use work.reset_pkg.all;
 
 entity ws2812 is
+  generic (
+    RESET_IMPL : reset_type := none);
   port (
     ws2812_in        : in  ws2812_in_type;
     ws2812_out       : out ws2812_out_type;
     ws2812_chain_out : out ws2812_chain_out_type;
+    reset            : in  std_logic;
     clk              : in  std_logic);
 end ws2812;
 
 architecture rtl of ws2812 is
 
-  type ws2812_states is (idle, reset, write1, write2, write3);
+  type ws2812_states is (idle, rst, write1, write2, write3);
 
   type ws2812_state_type is record
     timer     : integer range 0 to 3000;
@@ -48,20 +52,21 @@ architecture rtl of ws2812 is
     state     : ws2812_states;
   end record;
 
-  signal r, rin : ws2812_state_type := (
-    timer     => 0,
-    chain_out => (d => '0'),
-    o         => (busy => '1'),
-    sr        => (others => '0'),
-    bit_cnt   => 0,
-    state     => idle);
+  constant ws2812_state_type_initial : ws2812_state_type := (timer     => 0,
+                                                             chain_out => (d => '0'),
+                                                             o         => (busy => '1'),
+                                                             sr        => (others => '0'),
+                                                             bit_cnt   => 0,
+                                                             state     => idle);
+
+  signal r, rin : ws2812_state_type := ws2812_state_type_initial;
 
 begin  -- ws2812
 
   ws2812_chain_out <= r.chain_out;
   ws2812_out       <= r.o;
 
-  comb : process(r, ws2812_in)
+  comb : process(r, ws2812_in, reset)
     variable v : ws2812_state_type;
   begin
     v := r;
@@ -71,7 +76,7 @@ begin  -- ws2812
         v.o.busy := '0';
 
         if ws2812_in.send_reset = '1' then
-          v.state  := reset;
+          v.state  := rst;
           v.timer  := reset_cycles;
           v.o.busy := '1';
         end if;
@@ -83,10 +88,10 @@ begin  -- ws2812
           v.o.busy  := '1';
         end if;
 
-        -----------------------------------------------------------------------
-        -- Reset
-        -----------------------------------------------------------------------
-      when reset =>
+      -----------------------------------------------------------------------
+      -- Reset
+      -----------------------------------------------------------------------
+      when rst =>
         v.chain_out.d := '0';
         if v.timer = 0 then
           v.state := idle;
@@ -95,9 +100,9 @@ begin  -- ws2812
         end if;
 
 
-        -------------------------------------------------------------------------
-        -- Write loop sequence
-        -------------------------------------------------------------------------  
+      -------------------------------------------------------------------------
+      -- Write loop sequence
+      -------------------------------------------------------------------------  
       when write1 =>
         v.chain_out.d := '1';
 
@@ -120,7 +125,7 @@ begin  -- ws2812
         else
           v.timer := v.timer - 1;
         end if;
-        
+
       when write3 =>
         v.chain_out.d := '0';
         v.timer       := v.timer - 1;
@@ -137,14 +142,34 @@ begin  -- ws2812
 
       when others => null;
     end case;
+
+    -- sync reset
+    if RESET_IMPL = sync and reset = '1' then
+      v := ws2812_state_type_initial;
+    end if;
     rin <= v;
   end process comb;
 
-  seq : process (clk)
-  begin  -- process seq
-    if rising_edge(clk) then
-      r <= rin;
-    end if;
-  end process seq;
+  async_reset : if RESET_IMPL = async generate
+    seq : process (clk, reset) is
+    begin  -- process seq
+      if reset = '0' then                 -- asynchronous reset (active low)
+        r <= ws2812_state_type_initial;
+      elsif clk'event and clk = '1' then  -- rising clock edge
+        r <= rin;
+      end if;
+    end process seq;
+  end generate;
+
+  sync_reset : if RESET_IMPL /= async generate
+    seq : process (clk) is
+    begin  -- process seq
+      if clk'event and clk = '1' then   -- rising clock edge
+        r <= rin;
+      end if;
+    end process seq;
+  end generate;
+
+
 
 end rtl;

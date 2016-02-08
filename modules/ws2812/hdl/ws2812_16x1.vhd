@@ -21,40 +21,40 @@ use work.ws2812_pkg.all;
 use work.ws2812_cfg_pkg.all;
 use work.reset_pkg.all;
 
-entity ws2812_8x1 is
+entity ws2812_16x1 is
   generic (
     RESET_IMPL : reset_type := none);
   port (
-    pixels     : in  ws2812_8x1_in_type;
+    pixels     : in  ws2812_16x1_in_type;
     ws2812_in  : out ws2812_in_type;
     ws2812_out : in  ws2812_out_type;
     reset      : in  std_logic;
     clk        : in  std_logic);
-end ws2812_8x1;
+end ws2812_16x1;
 
-architecture rtl of ws2812_8x1 is
+architecture rtl of ws2812_16x1 is
 
-  type ws2812_8x1_states is (idle, write1, write2, write3, finish1, finish2);
+  type ws2812_16x1_states is (idle, write1, write2, write3, finish1, finish2);
 
-  type ws2812_8x1_state_type is record
+  type ws2812_16x1_state_type is record
     o         : ws2812_in_type;
-    pixel_cnt : integer range 0 to 7;
-    state     : ws2812_8x1_states;
+    pixel_cnt : integer range 0 to 15;
+    state     : ws2812_16x1_states;
   end record;
 
-  constant ws2812_8x1_state_type_initial : ws2812_8x1_state_type := (
+  constant ws2812_16x1_state_type_initial : ws2812_16x1_state_type := (
     o         => (d => (others => '0'), we => '0', send_reset => '0'),
     pixel_cnt => 0,
     state     => idle);
 
-  signal r, rin : ws2812_8x1_state_type := ws2812_8x1_state_type_initial;
+  signal r, rin : ws2812_16x1_state_type := ws2812_16x1_state_type_initial;
 
-begin  -- ws2812_8x1
+begin  -- ws2812_16x1
 
   ws2812_in <= r.o;
 
   comb : process(pixels, r, ws2812_out, reset)
-    variable v : ws2812_8x1_state_type;
+    variable v : ws2812_16x1_state_type;
   begin
     v := r;
 
@@ -64,7 +64,7 @@ begin  -- ws2812_8x1
 
         if pixels.refresh = '1' then
           v.state     := write1;
-          v.pixel_cnt := 7;
+          v.pixel_cnt := 15;
         --busy    := '1';
         end if;
 
@@ -109,7 +109,7 @@ begin  -- ws2812_8x1
 
     -- sync reset
     if RESET_IMPL = sync and reset = '1' then
-      v := ws2812_8x1_state_type_initial;
+      v := ws2812_16x1_state_type_initial;
     end if;
     rin <= v;
   end process comb;
@@ -118,7 +118,7 @@ begin  -- ws2812_8x1
     seq : process (clk, reset) is
     begin  -- process seq
       if reset = '0' then                 -- asynchronous reset (active low)
-        r <= ws2812_8x1_state_type_initial;
+        r <= ws2812_16x1_state_type_initial;
       elsif clk'event and clk = '1' then  -- rising clock edge
         r <= rin;
       end if;
