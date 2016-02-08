@@ -19,94 +19,103 @@ use ieee.numeric_std.all;
 
 library work;
 use work.bus_pkg.all;
+use work.reset_pkg.all;
 
 -------------------------------------------------------------------------------
 
 package reg_file_pkg is
 
-   type reg_file_type is array (natural range <>) of std_logic_vector(15 downto 0);
+  type reg_file_type is array (natural range <>) of std_logic_vector(15 downto 0);
 
-   -----------------------------------------------------------------------------
-   -- Component declarations
-   -----------------------------------------------------------------------------
+  -----------------------------------------------------------------------------
+  -- Component declarations
+  -----------------------------------------------------------------------------
 
-   -- A single 16-bit register. 
-   component peripheral_register is
-      generic (
-         BASE_ADDRESS : integer range 0 to 16#7FFF#);
-      port (
-         dout_p : out std_logic_vector(15 downto 0);
-         din_p  : in  std_logic_vector(15 downto 0);
-         bus_o  : out busdevice_out_type;
-         bus_i  : in  busdevice_in_type;
-         clk    : in  std_logic);
-   end component peripheral_register;
+  -- A single 16-bit register. 
+  component peripheral_register is
+    generic (
+      BASE_ADDRESS : integer range 0 to 16#7FFF#;
+      RESET_IMPL   : reset_type := none);
+    port (
+      dout_p : out std_logic_vector(15 downto 0);
+      din_p  : in  std_logic_vector(15 downto 0);
+      bus_o  : out busdevice_out_type;
+      bus_i  : in  busdevice_in_type;
+      reset  : in  std_logic;
+      clk    : in  std_logic);
+  end component peripheral_register;
 
-   -- Several (2**(REG_ADDR_BIT)) 16-bit registers. 
-   component reg_file
-      generic (
-         BASE_ADDRESS : integer range 0 to 2**15-1;
-         REG_ADDR_BIT : natural);
-      port (
-         bus_o : out busdevice_out_type;
-         bus_i : in  busdevice_in_type;
-         reg_o : out reg_file_type(2**REG_ADDR_BIT-1 downto 0);
-         reg_i : in  reg_file_type(2**REG_ADDR_BIT-1 downto 0);
-         clk   : in  std_logic);
-   end component;
+  -- Several (2**(REG_ADDR_BIT)) 16-bit registers. 
+  component reg_file
+    generic (
+      BASE_ADDRESS : integer range 0 to 2**15-1;
+      REG_ADDR_BIT : natural;
+      RESET_IMPL   : reset_type := none);
+    port (
+      bus_o : out busdevice_out_type;
+      bus_i : in  busdevice_in_type;
+      reg_o : out reg_file_type(2**REG_ADDR_BIT-1 downto 0);
+      reg_i : in  reg_file_type(2**REG_ADDR_BIT-1 downto 0);
+      reset : in  std_logic;
+      clk   : in  std_logic);
+  end component;
 
-   component reg_file_bram is
-      generic (
-         BASE_ADDRESS : integer range 0 to 2**15-1);
-      port (
-         bus_o       : out busdevice_out_type;
-         bus_i       : in  busdevice_in_type;
-         bram_data_i : in  std_logic_vector(15 downto 0);
-         bram_data_o : out std_logic_vector(15 downto 0);
-         bram_addr_i : in  std_logic_vector(9 downto 0);
-         bram_we_p   : in  std_logic;
-         clk         : in  std_logic);
-   end component reg_file_bram;
+  component reg_file_bram is
+    generic (
+      BASE_ADDRESS : integer range 0 to 2**15-1;
+      RESET_IMPL   : reset_type := none);
+    port (
+      bus_o       : out busdevice_out_type;
+      bus_i       : in  busdevice_in_type;
+      bram_data_i : in  std_logic_vector(15 downto 0);
+      bram_data_o : out std_logic_vector(15 downto 0);
+      bram_addr_i : in  std_logic_vector(9 downto 0);
+      bram_we_p   : in  std_logic;
+      reset       : in  std_logic;
+      clk         : in  std_logic);
+  end component reg_file_bram;
 
-   component reg_file_bram_double_buffered
-      generic (
-         BASE_ADDRESS : integer range 0 to 2**15-1);
-      port (
-         bus_o       : out busdevice_out_type;
-         bus_i       : in  busdevice_in_type;
-         bram_data_i : in  std_logic_vector(35 downto 0);
-         bram_data_o : out std_logic_vector(35 downto 0);
-         bram_addr_i : in  std_logic_vector(7 downto 0);
-         bram_we_p   : in  std_logic;
-         irq_o       : out std_logic;
-         ack_i       : in  std_logic;
-         ready_i     : in  std_logic;
-         enable_o    : out std_logic;
-         bank_x_o    : out std_logic;
-         bank_y_o    : out std_logic;
-         clk         : in  std_logic);
-   end component;
+  component reg_file_bram_double_buffered
+    generic (
+      BASE_ADDRESS : integer range 0 to 2**15-1;
+      RESET_IMPL   : reset_type := none);
+    port (
+      bus_o       : out busdevice_out_type;
+      bus_i       : in  busdevice_in_type;
+      bram_data_i : in  std_logic_vector(35 downto 0);
+      bram_data_o : out std_logic_vector(35 downto 0);
+      bram_addr_i : in  std_logic_vector(7 downto 0);
+      bram_we_p   : in  std_logic;
+      irq_o       : out std_logic;
+      ack_i       : in  std_logic;
+      ready_i     : in  std_logic;
+      enable_o    : out std_logic;
+      bank_x_o    : out std_logic;
+      bank_y_o    : out std_logic;
+      reset       : in  std_logic;
+      clk         : in  std_logic);
+  end component;
 
-   component double_buffering is
-      port (
-         ready_p  : in  std_logic;
-         enable_p : out std_logic;
-         irq_p    : out std_logic;
-         ack_p    : in  std_logic;
-         bank_p   : out std_logic;
-         clk      : in  std_logic);
-   end component double_buffering;
+  component double_buffering is
+    port (
+      ready_p  : in  std_logic;
+      enable_p : out std_logic;
+      irq_p    : out std_logic;
+      ack_p    : in  std_logic;
+      bank_p   : out std_logic;
+      clk      : in  std_logic);
+  end component double_buffering;
 
-   procedure readWord(
-      constant addr :     natural range 0 to 2**15-1;
-      signal bus_i  : out busdevice_in_type;
-      signal clk    : in  std_logic);
+  procedure readWord(
+    constant addr :     natural range 0 to 2**15-1;
+    signal bus_i  : out busdevice_in_type;
+    signal clk    : in  std_logic);
 
-   procedure writeWord (
-      constant addr : in  natural range 0 to 2**15-1;
-      constant data : in  natural range 0 to 2**16-1;
-      signal bus_i  : out busdevice_in_type;
-      signal clk    : in  std_logic);
+  procedure writeWord (
+    constant addr : in  natural range 0 to 2**15-1;
+    constant data : in  natural range 0 to 2**16-1;
+    signal bus_i  : out busdevice_in_type;
+    signal clk    : in  std_logic);
 
 
 end reg_file_pkg;
@@ -115,47 +124,47 @@ end reg_file_pkg;
 
 package body reg_file_pkg is
 
-   ----------------------------------------------------------------------------
-   -- Debug functions to simulate bus activity
-   ----------------------------------------------------------------------------
+  ----------------------------------------------------------------------------
+  -- Debug functions to simulate bus activity
+  ----------------------------------------------------------------------------
 
-   -- Read a word from the internal bus
-   -- Example usage: readWord(addr => BASE_ADDRESS + 1, bus_i => bus_i, clk => clk);
-   procedure readWord(
-      constant addr :     natural range 0 to 2**15-1;
-      signal bus_i  : out busdevice_in_type;
-      signal clk    : in  std_logic
-      ) is
-   begin  -- procedure readWord
-      if (clk = '1') then
-         wait until falling_edge(clk);
-      end if;
-      bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
-      bus_i.data <= x"1234";            -- dummy data in read cycle
-      bus_i.re   <= '1';
-      wait until rising_edge(clk);
-      -- ret        := bus_o.data;
+  -- Read a word from the internal bus
+  -- Example usage: readWord(addr => BASE_ADDRESS + 1, bus_i => bus_i, clk => clk);
+  procedure readWord(
+    constant addr :     natural range 0 to 2**15-1;
+    signal bus_i  : out busdevice_in_type;
+    signal clk    : in  std_logic
+    ) is
+  begin  -- procedure readWord
+    if (clk = '1') then
       wait until falling_edge(clk);
-      bus_i.re   <= '0';
-   end procedure readWord;
+    end if;
+    bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
+    bus_i.data <= x"1234";              -- dummy data in read cycle
+    bus_i.re   <= '1';
+    wait until rising_edge(clk);
+    -- ret        := bus_o.data;
+    wait until falling_edge(clk);
+    bus_i.re   <= '0';
+  end procedure readWord;
 
-   -- Write a word to the internal bus
-   -- Example usage: writeWord(addr => 16#0010#, data => 16#0055#, bus_i => bus_i, clk => clk);
-   procedure writeWord (
-      constant addr : in  natural range 0 to 2**15-1;
-      constant data : in  natural range 0 to 2**16-1;
-      signal bus_i  : out busdevice_in_type;
-      signal clk    : in  std_logic) is
-   begin  -- procedure writeWord
-      if (clk = '1') then
-         wait until falling_edge(clk);
-      end if;
-      bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
-      bus_i.data <= std_logic_vector(to_unsigned(data, bus_i.data'length));
-      bus_i.we   <= '1';
-      wait until rising_edge(clk);
+  -- Write a word to the internal bus
+  -- Example usage: writeWord(addr => 16#0010#, data => 16#0055#, bus_i => bus_i, clk => clk);
+  procedure writeWord (
+    constant addr : in  natural range 0 to 2**15-1;
+    constant data : in  natural range 0 to 2**16-1;
+    signal bus_i  : out busdevice_in_type;
+    signal clk    : in  std_logic) is
+  begin  -- procedure writeWord
+    if (clk = '1') then
       wait until falling_edge(clk);
-      bus_i.we   <= '0';
-   end procedure writeWord;
+    end if;
+    bus_i.addr <= std_logic_vector(to_unsigned(addr, bus_i.addr'length));
+    bus_i.data <= std_logic_vector(to_unsigned(data, bus_i.data'length));
+    bus_i.we   <= '1';
+    wait until rising_edge(clk);
+    wait until falling_edge(clk);
+    bus_i.we   <= '0';
+  end procedure writeWord;
 
 end package body reg_file_pkg;
