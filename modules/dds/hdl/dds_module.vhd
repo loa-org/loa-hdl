@@ -77,7 +77,8 @@ begin  -- architecture structural
   -----------------------------------------------------------------------------
   waveform_ram : entity work.reg_file_bram
     generic map (
-      BASE_ADDRESS => BASE_ADDRESS)
+      BASE_ADDRESS => BASE_ADDRESS,
+      RESET_IMPL   => RESET_IMPL)
     port map (
       bus_o       => bus_ram_o,
       bus_i       => bus_i,
@@ -85,6 +86,7 @@ begin  -- architecture structural
       bram_data_o => dout,
       bram_addr_i => phase,
       bram_we_p   => '0',
+      reset       => reset,
       clk         => clk);
 
   -----------------------------------------------------------------------------
@@ -101,54 +103,64 @@ begin  -- architecture structural
   -----------------------------------------------------------------------------
   control_register : entity work.peripheral_register
     generic map (
-      BASE_ADDRESS => BASE_ADDRESS + 16#400#)
+      BASE_ADDRESS => BASE_ADDRESS + 16#400#,
+      RESET_IMPL   => RESET_IMPL)
     port map (
       dout_p => ctrl_reg,
       din_p  => ctrl_reg,
       bus_o  => bus_ctrl_reg_o,
       bus_i  => bus_i,
+      reset  => reset,
       clk    => clk);
 
   phase_inc_lsb_register : entity work.peripheral_register
     generic map (
-      BASE_ADDRESS => BASE_ADDRESS + 16#401#)
+      BASE_ADDRESS => BASE_ADDRESS + 16#401#,
+      RESET_IMPL   => RESET_IMPL)
     port map (
       dout_p => phase_increment(15 downto 0),
       din_p  => phase_increment(15 downto 0),
       bus_o  => bus_phase_inc_lsb_register_o,
       bus_i  => bus_i,
+      reset  => reset,
       clk    => clk);
 
   phase_inc_msb_register : entity work.peripheral_register
     generic map (
-      BASE_ADDRESS => BASE_ADDRESS + 16#402#)
+      BASE_ADDRESS => BASE_ADDRESS + 16#402#,
+      RESET_IMPL   => RESET_IMPL)
     port map (
       dout_p => phase_increment(31 downto 16),
       din_p  => phase_increment(31 downto 16),
       bus_o  => bus_phase_inc_msb_register_o,
       bus_i  => bus_i,
+      reset  => reset,
       clk    => clk);
 
 
 
   load_lsb_register : entity work.peripheral_register
     generic map (
-      BASE_ADDRESS => BASE_ADDRESS + 16#403#)
+      BASE_ADDRESS => BASE_ADDRESS + 16#403#,
+      RESET_IMPL   => RESET_IMPL)
     port map (
       dout_p => accu_load0(15 downto 0),
       din_p  => accu_load0(15 downto 0),
       bus_o  => bus_load_lsb_register_o,
       bus_i  => bus_i,
+      reset  => reset,
       clk    => clk);
 
   load_msb_register : entity work.peripheral_register
     generic map (
-      BASE_ADDRESS => BASE_ADDRESS + 16#404#)
+      BASE_ADDRESS => BASE_ADDRESS + 16#404#,
+      RESET_IMPL   => RESET_IMPL)
     port map (
       dout_p => accu_load0(31 downto 16),
       din_p  => accu_load0(31 downto 16),
       bus_o  => bus_load_msb_register_o,
       bus_i  => bus_i,
+      reset  => reset,
       clk    => clk);
 
 

@@ -5,6 +5,8 @@ def init(module):
 def prepare(module, options):
 	module.depends("loa-hdl:core")
 	#module.depends("loa-hdl:utils")
+	#module.depends("loa-vendor:")
+
 	module.add_boolean_option(
 		name="testbench",
 		description="Generate testbench",
