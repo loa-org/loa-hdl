@@ -1,20 +1,20 @@
 
 def init(module):
-	module.set_name("imotor")
+	module.name = "imotor"
 
 def prepare(module, options):
 	module.depends("loa-hdl:core")
 	module.depends("loa-hdl:utils")
 	module.depends("loa-hdl:peripheral_register")
 	module.depends("loa-hdl:uart")
-	module.add_boolean_option(
+	module.add_option(BooleanOption(
 		name="testbench",
 		description="Generate testbench",
-		default = False)
+		default = False))
 	return True
 
 def build(env):
-	env.copy('hdl', 'hdl')	
-	if env.options["::testbench"] == True:
+	env.copy('hdl', 'hdl')
+	if env["::testbench"] == True:
 			env.copy('tb', "tb/imotor")
 			env.copy('../makefile.ghdl.mk', "tb/imotor")

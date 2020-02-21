@@ -1,19 +1,19 @@
 
 def init(module):
-	module.set_name("fsmcslave")
+	module.name = "fsmcslave"
 
 def prepare(module, options):
 	module.depends("loa-hdl:core")
 	module.depends("loa-hdl:utils")
 	module.depends("loa-hdl:peripheral_register")
-	module.add_boolean_option(
+	module.add_option(BooleanOption(
 		name="testbench",
 		description="Generate testbench",
-		default = False)
+		default = False))
 	return True
 
 def build(env):
-	env.copy('hdl', 'hdl')	
-	if env.options["::testbench"] == True:
+	env.copy('hdl', 'hdl')
+	if env["::testbench"] == True:
 			env.copy('tb', "tb/fsmcslave")
 			env.copy('../makefile.ghdl.mk', "tb/fsmcslave")

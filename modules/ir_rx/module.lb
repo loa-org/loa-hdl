@@ -1,6 +1,6 @@
 
 def init(module):
-	module.set_name("ir_rx")
+	module.name = "ir_rx"
 
 def prepare(module, options):
 	module.depends("loa-hdl:core")
@@ -9,15 +9,14 @@ def prepare(module, options):
 	module.depends("loa-hdl:adc_ltc2351")
 	module.depends("loa-hdl:signalprocessing")
 	module.depends("loa-hdl:ram")
-	module.add_boolean_option(
+	module.add_option(BooleanOption(
 		name="testbench",
 		description="Generate testbench",
-		default = False)
+		default = False))
 	return True
 
 def build(env):
-	env.copy('hdl', 'hdl')	
-	if env.options["::testbench"] == True:
+	env.copy('hdl', 'hdl')
+	if env["::testbench"] == True:
 			env.copy('tb', "tb/ir_rx")
 			env.copy('../makefile.ghdl.mk', "tb/ir_rx")
-

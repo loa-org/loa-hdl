@@ -1,6 +1,6 @@
 
-def prepare(repo):
-	repo.set_name("loa-hdl")
-	repo.add_modules(repo.glob("modules/*/module.lb"))	
+def init(repo):
+	repo.name = "loa-hdl"
 
-
+def prepare(repo, options):
+	repo.add_modules_recursive("modules", modulefile="*.lb")

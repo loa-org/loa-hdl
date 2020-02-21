@@ -1,17 +1,17 @@
 
 def init(module):
-	module.set_name("ram")
+	module.name = "ram"
 
-def prepare(module, options):	
+def prepare(module, options):
 	module.depends("loa-hdl:utils")
-	module.add_boolean_option(
+	module.add_option(BooleanOption(
 		name="testbench",
 		description="Generate testbench",
-		default = False)
+		default = False))
 	return True
 
 def build(env):
-	env.copy('hdl', 'hdl')	
-	if env.options["::testbench"] == True:
+	env.copy('hdl', 'hdl')
+	if env["::testbench"] == True:
 			env.copy('tb', "tb/ram")
 			env.copy('../makefile.ghdl.mk', "tb/ram")

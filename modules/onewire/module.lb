@@ -1,16 +1,16 @@
 
 def init(module):
-	module.set_name("onewire")
+	module.name = "onewire"
 
 def prepare(module, options):
-	module.add_boolean_option(
+	module.add_option(BooleanOption(
 		name="testbench",
 		description="Generate testbench",
-		default = False)
+		default = False))
 	return True
 
 def build(env):
 	env.copy('hdl', 'hdl')
-	if env.options["::testbench"] == True:
+	if env["::testbench"] == True:
 			env.copy('tb', "tb/onewire")
 			env.copy('../makefile.ghdl.mk', "tb/onewire")

@@ -25,4 +25,4 @@ after loas.
 Tools used
 ----------
 
-The HDL modules are designed to be assembled into an library by the library builder: https://github.com/dergraaf/library-builder .
+The HDL modules are designed to be assembled into an library by the library builder: https://github.com/modm-io/lbuild .

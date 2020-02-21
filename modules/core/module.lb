@@ -1,14 +1,14 @@
 
 def init(module):
-	module.set_name("core")
+	module.name = "core"
 
 def prepare(module, options):
-	# dummy option
-	module.add_boolean_option(
+  # a dummy option
+	module.add_option(BooleanOption(
 		name="testbench",
 		description="Generate testbench",
-		default = False)
+		default = False))
 	return True
 
 def build(env):
-	env.copy('hdl', 'hdl')
+  env.copy('hdl', 'hdl')

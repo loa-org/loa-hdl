@@ -1,20 +1,20 @@
 
 def init(module):
-	module.set_name("us_rx")
+	module.name = "us_rx"
 
 def prepare(module, options):
 	module.depends("loa-hdl:core")
 	module.depends("loa-hdl:utils")
-	module.depends("loa-hdl:adc_ltc2351")	
+	module.depends("loa-hdl:adc_ltc2351")
 	module.depends("loa-hdl:signalprocessing")
-	module.add_boolean_option(
+	module.add_option(BooleanOption(
 		name="testbench",
-		description="Generat testbench",
-		default = False)
+		description="Generate testbench",
+		default = False))
 	return True
 
 def build(env):
 	env.copy('hdl', 'hdl')
-	if env.options["::testbench"] == True:
+	if env["::testbench"] == True:
 			env.copy('tb', "tb/us_rx")
 			env.copy('../makefile.ghdl.mk', "tb/us_rx")
