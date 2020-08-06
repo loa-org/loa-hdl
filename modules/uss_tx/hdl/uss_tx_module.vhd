@@ -16,7 +16,7 @@
 --   0x03 | Bit pattern 1
 --   0x04 | Bit pattern 2
 --   0x05 | Bit pattern 3
---   
+--
 -------------------------------------------------------------------------------
 -- Copyright (c) 2012, 2013 strongly-typed
 -------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ architecture behavioral of uss_tx_module is
    -- types for states
    -- none
 
-   -- record for internal states 
+   -- record for internal states
    -- none
 
    -----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ architecture behavioral of uss_tx_module is
    signal pattern    : std_logic_vector(BITPATTERN_WIDTH - 1 downto 0);
    signal bitstream  : std_logic;
    signal clk_bit : std_logic;
-   
+
    signal modulation : std_logic_vector(2 downto 0);  -- Modulation of the US carrier
 
    signal clk_uss_enable : std_logic := '0';
@@ -112,6 +112,7 @@ begin  -- behavioral
          bus_i => bus_i,
          reg_o => reg_o,
          reg_i => reg_i,
+         reset => '0',
          clk   => clk
          );
 
@@ -184,7 +185,7 @@ begin  -- behavioral
    pattern(31 downto 16) <= reg_o(3);
    pattern(47 downto 32) <= reg_o(4);
    pattern(63 downto 48) <= reg_o(5);
-	
+
 	-- enable readback of configurations
 	reg_i <= reg_o;
 

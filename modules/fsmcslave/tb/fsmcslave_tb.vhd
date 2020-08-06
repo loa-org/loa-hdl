@@ -10,7 +10,7 @@
 -------------------------------------------------------------------------------
 -- Copyright (c) 2014, German Aerospace Center (DLR)
 -- All Rights Reserved.
--- 
+--
 -- The file is part for the Loa project and is released under the
 -- 3-clause BSD license. See the file `LICENSE` for the full license
 -- governing this code.
@@ -57,6 +57,7 @@ architecture behavioral of fsmcslave_tb is
 
   -- clock
   signal Clk : std_logic := '1';
+  signal reset : std_logic := '1';
 
 begin  -- tb
 
@@ -83,6 +84,7 @@ begin  -- tb
       bus_i  => bus_o,
       dout_p => reg_o,
       din_p  => reg_i,
+      reset  => reset,
       clk    => clk);
 
 
@@ -90,6 +92,7 @@ begin  -- tb
 
   -- clock generation
   Clk <= not Clk after 10 ns;
+  reset <= '0' after 20 ns;
 
   -----------------------------------------------------------------------------
   --
@@ -118,7 +121,7 @@ begin  -- tb
     wait until Clk = '1';
     wait until Clk = '1';
 
-    -- Begin Multiplexed Write 
+    -- Begin Multiplexed Write
     fsmcslave_i.adv_n <= '0';
     fsmcslave_i.cs_n  <= '0';
     fsmcslave_i.data  <= "0000" & "0000" & "0000" & "1010";  -- Addr
@@ -174,7 +177,7 @@ begin  -- tb
     wait until Clk = '1';
     wait until Clk = '1';
 
-    -- Begin Multiplexed Write 
+    -- Begin Multiplexed Write
     fsmcslave_i.adv_n <= '0';
     fsmcslave_i.cs_n  <= '0';
     fsmcslave_i.data  <= "0000" & "0000" & "0000" & "1010";  -- Addr
@@ -220,9 +223,9 @@ begin  -- tb
 
     -- and repeat
   end process WaveGen_Proc;
-  
 
-  
+
+
 
 end behavioral;
 

@@ -4,9 +4,9 @@
 -- Author     : Fabian Greif
 -- Standard   : VHDL'x
 -------------------------------------------------------------------------------
--- Description: 
+-- Description:
 -------------------------------------------------------------------------------
--- Copyright (c) 2013 
+-- Copyright (c) 2013
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -32,7 +32,7 @@ architecture behavourial of uart_rx_tb is
    signal full      : std_logic := '1';
    signal clk_rx_en : std_logic := '0';
    signal clk       : std_logic := '0';
-   
+
 begin
 
    -- component instantiation
@@ -45,6 +45,7 @@ begin
          error_p   => rx_error,
          full_p    => full,
          clk_rx_en => clk_rx_en,
+         reset     => '0',
          clk       => clk);
 
    -- clock generation
@@ -93,9 +94,9 @@ begin
       -- send a wrong parity bit
       uart_transmit(rxd, "101111100", 10000000);
       wait for 200 ns;
-      
+
       wait;
-      
+
    end process waveform;
 
 end architecture behavourial;

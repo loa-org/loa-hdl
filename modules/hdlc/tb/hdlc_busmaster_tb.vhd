@@ -46,6 +46,7 @@ architecture behavourial of hdlc_busmaster_tb is
 
   -- clock
   signal Clk : std_logic := '1';
+  signal reset : std_logic := '1';
 
 begin  -- architecture behavourial
 
@@ -79,16 +80,19 @@ begin  -- architecture behavourial
       din_p  => x"1234",
       bus_o  => bus_to_master,
       bus_i  => master_to_bus,
+      reset  => reset,
       clk    => clk);
 
   -- clock generation
   clk <= not clk after 10 ns;
+  reset <= '0' after 20 ns;
 
   -- waveform generation
   WaveGen_Proc : process
   begin
     wait until rising_edge(Clk);
-
+    wait until rising_edge(Clk);
+    wait until rising_edge(Clk);
     wait until rising_edge(Clk);
 
     -- read with good crc
@@ -139,7 +143,7 @@ begin  -- architecture behavourial
     wait until Clk = '1';
     wait until Clk = '1';
 
-    -- read with bad crc 
+    -- read with bad crc
     tb_to_enc.data   <= "1" & x"00";
     tb_to_enc.enable <= '1';
 

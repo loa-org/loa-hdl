@@ -1,11 +1,11 @@
 [*]
-[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
-[*] Wed Sep 11 12:24:41 2013
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Thu Aug  6 12:06:28 2020
 [*]
-[dumpfile] "/home/calle/projects/loa/fpga/modules/hdlc/tb/simulation/hdlc_busmaster_tb.ghw"
-[dumpfile_mtime] "Wed Sep 11 12:24:04 2013"
-[dumpfile_size] 9411
-[savefile] "/home/calle/projects/loa/fpga/modules/hdlc/tb/hdlc_busmaster_tb.sav"
+[dumpfile] "/home/calle/projects/loa-hdl-test/tb/hdlc/hdlc_busmaster_tb.ghw"
+[dumpfile_mtime] "Thu Aug  6 12:06:14 2020"
+[dumpfile_size] 9505
+[savefile] "/home/calle/projects/loa-hdl-test/tb/hdlc/hdlc_busmaster_tb.sav"
 [timestart] 0
 [size] 1912 1004
 [pos] 1920 0
@@ -29,6 +29,8 @@
 [sst_vpaned_height] 192
 @28
 top.hdlc_busmaster_tb.clk
+@29
+top.hdlc_busmaster_tb.reset
 @200
 -
 -Data & Enable from Testbench
@@ -58,9 +60,8 @@ top.hdlc_busmaster_tb.dec_to_busmaster.enable
 -Busmaster State
 @28
 top.hdlc_busmaster_tb.dut_bus_mst.r.state
-@23
-#{top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[7:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[7] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[6] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[5] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[4] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[3] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[2] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[1] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[0]
 @22
+#{top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[7:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[7] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[6] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[5] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[4] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[3] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[2] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[1] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_out[0]
 #{top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[7:0]} top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[7] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[6] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[5] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[4] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[3] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[2] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[1] top.hdlc_busmaster_tb.dut_bus_mst.r.crc_inc[0]
 @200
 -

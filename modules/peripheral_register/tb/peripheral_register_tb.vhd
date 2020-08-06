@@ -4,9 +4,9 @@
 -- Author     : Calle  <calle@Alukiste>
 -- Standard   : VHDL'87
 -------------------------------------------------------------------------------
--- Description: 
+-- Description:
 -------------------------------------------------------------------------------
--- Copyright (c) 2011 
+-- Copyright (c) 2011
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -65,6 +65,7 @@ begin
          din_p  => reg_readback,                 -- read back the written values
          bus_o  => bus_o,
          bus_i  => bus_i,
+         reset  => '0',
          clk    => clk);
 
    -- clock generation
@@ -123,6 +124,6 @@ begin
       bus_i.re <= '1';
       wait until rising_edge(clk);
       bus_i.re <= '0';
-      
+
    end process waveform;
 end tb;
