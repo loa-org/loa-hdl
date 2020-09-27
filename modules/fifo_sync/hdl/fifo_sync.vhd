@@ -60,7 +60,7 @@ architecture behavioural of fifo_sync is
   signal head    : unsigned (address_width-1 downto 0)       := (others => '0');
   signal tail    : unsigned (address_width-1 downto 0)       := (others => '0');
   signal full_s  : std_logic                                 := '0';
-  signal empty_s : std_logic                                 := '1';
+  signal empty_s : std_logic                                 := '0';
   signal valid_s : std_logic                                 := '0';
   signal do_s    : std_logic_vector(DATA_WIDTH - 1 downto 0) := (others => '0');
   
@@ -83,7 +83,7 @@ begin  -- architecture behavourial
   -----------------------------------------------------------------------------
   -- one process FSM
   -----------------------------------------------------------------------------
-  process (CLK, di, wr, rd)
+  process (CLK, di, wr, rd, full_s, empty_s)
   begin
     if rising_edge(CLK) then
       if (wr = '1' and full_s = '0') then

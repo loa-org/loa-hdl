@@ -4,14 +4,14 @@
 -- Author     : Carl Treudler (cjt@users.sourceforge.net)
 -- Standard   : VHDL'93/02
 -------------------------------------------------------------------------------
--- Description: 
+-- Description:
 -- Decode 8-Bit HDLC Async framing int 8-Bit Data + Frame Delimiter
 --
 -- Read access:
 -- frame delimiter
 -- cmd  - 0x10
--- addr -   ...  
--- crc 
+-- addr -   ...
+-- crc
 --
 -- frame delimiter
 -- 0x11
@@ -24,7 +24,7 @@
 -- frame delimiter
 -- cmd  - 0x20
 -- addr - ...
--- data 
+-- data
 -- crc
 --
 -- Write reply:
@@ -70,7 +70,7 @@ architecture behavioural of hdlc_busmaster is
                                      RX_FRAME_CMD,       -- CMD Byte
                                      RX_FRAME_ADDR_MSB,  -- ADDR MSB
                                      RX_FRAME_ADDR_LSB,  -- ADDR LSB
-                                     RX_FRAME_DATA_MSB,  -- data 
+                                     RX_FRAME_DATA_MSB,  -- data
                                      RX_FRAME_DATA_LSB,  -- data
 
                                      RX_FRAME_CRC,
@@ -80,13 +80,15 @@ architecture behavioural of hdlc_busmaster is
                                      BAD_CRC_REPLY_4,
 
                                      RD_CYCLE_1,  -- these are the states for the read
-                                     RD_CYCLE_2,  -- access to the bus. 
+                                     RD_CYCLE_2,  -- access to the bus.
                                      RD_CYCLE_3,  -- access to the bus.
 
-                                     RD_REPLY_1,  -- reply 1 
+                                     RD_REPLY_1,  -- reply 1
                                      RD_REPLY_2,  -- reply 2
                                      RD_REPLY_3,  -- reply 3
+                                     RD_REPLY_3_WS,  -- reply 3, waitstate
                                      RD_REPLY_4,  -- reply 4
+                                     RD_REPLY_4_WS,  -- reply 4, waitstate
                                      RD_REPLY_5,  -- reply 5
                                      RD_REPLY_6,  -- reply 6
 
@@ -206,12 +208,12 @@ begin  -- architecture behavourial
               v.state := IDLE;           -- illegal command
             end if;
           else
-            v.state := BAD_CRC_REPLY_1;  -- illegal crc 
+            v.state := BAD_CRC_REPLY_1;  -- illegal crc
           end if;
         end if;
 
         -----------------------------------------------------------------
-        --  Send Bad CRC Reply 
+        --  Send Bad CRC Reply
         -----------------------------------------------------------------
       when BAD_CRC_REPLY_1 =>
         v.dout.enable := '1';
@@ -230,7 +232,7 @@ begin  -- architecture behavourial
         v.state       := IDLE;
 
         -----------------------------------------------------------------
-        --  Execute Read 
+        --  Execute Read
         -----------------------------------------------------------------
       when RD_CYCLE_1 =>
         v.bus_o.re   := '1';
@@ -259,14 +261,24 @@ begin  -- architecture behavourial
       when RD_REPLY_3 =>
         v.dout.data := "0" & r.data(15 downto 8);
         v.crc_out   := calc_crc_8210(v.dout.data(7 downto 0), r.crc_out);
+        v.state     := RD_REPLY_3_WS;
+
+      when RD_REPLY_3_WS =>
+        v.dout.enable := '0';
         v.state     := RD_REPLY_4;
 
       when RD_REPLY_4 =>
         v.dout.data := "0" & r.data(7 downto 0);
+        v.dout.enable := '1';
         v.crc_out   := calc_crc_8210(v.dout.data(7 downto 0), r.crc_out);
+        v.state     := RD_REPLY_4_WS;
+
+      when RD_REPLY_4_WS =>
+        v.dout.enable := '0';
         v.state     := RD_REPLY_5;
 
       when RD_REPLY_5 =>
+        v.dout.enable := '1';
         v.dout.data := "0" & r.crc_out;
         v.state     := RD_REPLY_6;
 
@@ -275,7 +287,7 @@ begin  -- architecture behavourial
         v.state       := IDLE;
 
         -----------------------------------------------------------------
-        --  Execute Write 
+        --  Execute Write
         -----------------------------------------------------------------
       when WR_CYCLE_1 =>
         v.bus_o.addr := r.addr(14 downto 0);

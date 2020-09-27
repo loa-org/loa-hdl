@@ -29,13 +29,13 @@ end reset_gen;
 -------------------------------------------------------------------------------
 architecture behavioural of reset_gen is
    
-   signal r : std_logic_vector(1 downto 0) := (others => '1');
+   signal r : std_logic_vector(9 downto 0) := (others => '1');
    
 begin
 
 	process (clk) begin
 		if rising_edge(clk) then
-			r <= '0' & r(1);
+			r <= '0' & r(9 downto 1);
 		end if;
 	end process;
 		

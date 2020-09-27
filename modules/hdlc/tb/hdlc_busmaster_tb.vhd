@@ -77,7 +77,7 @@ begin  -- architecture behavourial
       BASE_ADDRESS => 16#0080#)
     port map(
       dout_p => open,
-      din_p  => x"1234",
+      din_p  => x"127d",
       bus_o  => bus_to_master,
       bus_i  => master_to_bus,
       reset  => reset,
@@ -117,7 +117,7 @@ begin  -- architecture behavourial
     tb_to_enc.enable <= '0';
 
     wait until Clk = '1';
-    tb_to_enc.data   <= "0" & x"80";
+    tb_to_enc.data   <= "0" & x"7e";
     tb_to_enc.enable <= '1';
 
     wait until Clk = '1';
@@ -306,6 +306,65 @@ begin  -- architecture behavourial
     wait until Clk = '1';
     wait until Clk = '1';
     wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+
+
+    -- read with good crc
+    tb_to_enc.data   <= "1" & x"00";
+    tb_to_enc.enable <= '1';
+
+    wait until Clk = '1';
+    tb_to_enc.enable <= '0';
+
+    wait until Clk = '1';
+    tb_to_enc.data   <= "0" & x"10";
+    tb_to_enc.enable <= '1';
+
+    wait until Clk = '1';
+    tb_to_enc.enable <= '0';
+
+    wait until Clk = '1';
+    tb_to_enc.data   <= "0" & x"00";
+    tb_to_enc.enable <= '1';
+
+    wait until Clk = '1';
+    tb_to_enc.enable <= '0';
+
+    wait until Clk = '1';
+    tb_to_enc.data   <= "0" & x"80";
+    tb_to_enc.enable <= '1';
+
+    wait until Clk = '1';
+    tb_to_enc.enable <= '0';
+
+    wait until Clk = '1';
+    tb_to_enc.data   <= "0" & x"2B";    -- crc correct
+    tb_to_enc.enable <= '1';
+
+    wait until Clk = '1';
+    tb_to_enc.enable <= '0';
+
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+    wait until Clk = '1';
+
+
 
     wait for 10 ms;
 
