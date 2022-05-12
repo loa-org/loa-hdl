@@ -26,4 +26,4 @@ def build(env):
 
 	if env["::testbench"] == True:
 			env.copy('tb', "tb/spw_node")
-			env.copy('../makefile.ghdl.mk', "tb/spw_node")
+			env.copy('../makefile.ghdl.mk', "tb/spw_node/makefile.ghdl.mk")

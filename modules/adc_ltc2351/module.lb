@@ -16,4 +16,4 @@ def build(env):
 	env.copy('hdl', 'hdl')
 	if env["::testbench"] == True:
 			env.copy('tb', "tb/adc_ltc2351")
-			env.copy('../makefile.ghdl.mk', "tb/adc_ltc2351")
+			env.copy('../makefile.ghdl.mk', "tb/adc_ltc2351/makefile.ghdl.mk")

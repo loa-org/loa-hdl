@@ -17,4 +17,4 @@ def build(env):
 	env.copy('hdl', 'hdl')
 	if env["::testbench"] == True:
 			env.copy('tb', "tb/imotor")
-			env.copy('../makefile.ghdl.mk', "tb/imotor")
+			env.copy('../makefile.ghdl.mk', "tb/imotor/makefile.ghdl.mk")
